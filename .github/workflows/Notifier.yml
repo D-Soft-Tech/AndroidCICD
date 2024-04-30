@@ -1,0 +1,20 @@
+name: Notifier
+on :
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+jobs:
+  messageSlack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notifying Slack Channel of new Build
+        uses: rtCamp/action-slack-notify@v2
+
+        env:
+          SLACK_CHANNEL: ci_cd
+          SLACK_TITLE: New Build
+          SLACK_USERNAME: BotCI
+          SLACK_WEBHOOK: ${{secrets.APP_BUILD_WEBHOOK_URL}}
+          SLACK_MESSAGE: "Hello Team D-Tech, a new build is available on the project AndroidCICD"

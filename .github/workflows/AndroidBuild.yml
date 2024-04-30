@@ -20,7 +20,7 @@ jobs:
       - name : Setup java jdk
         uses : actions/setup-java@v4.2.1
         with:
-          java-version: ${{ matrix.java }}
+          java-version: ${{ matrix.java[2] }}
           distribution: 'adopt'
 
       - name : build the apk with gradle

@@ -8,10 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         java: [ '8', '11', '17', '21' ]
-        name: Java ${{ matrix.java }} sample
+
     steps:
       - name : Checkout
         uses : actions/checkout@v4.1.4

@@ -48,8 +48,9 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.APP_BUILD_WEBHOOK_URL }}
           CHANNEL_ID : 'D070WLKPN8P'
+          CHANNEL_ID2 : 'ci_cd'
         run: |
           curl -F file=@app/build/outputs/apk/debug/app-debug.apk \
-               -F channels=$CHANNEL_ID \
+               -F channels=$CHANNEL_ID2 \
                -F token=$SLACK_WEBHOOK_URL \
                https://slack.com/api/files.upload

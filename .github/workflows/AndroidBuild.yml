@@ -37,7 +37,7 @@ jobs:
 
       - name : Upload Apk to Slack
         env :
-          SLACK_WEBHOOK_URL : ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL : ${{ secrets.APP_BUILD_WEBHOOK_URL }}
           run: |
             curl -F file=@app/build/outputs/apk/app-debug.apk \
                  -F channels=ci_cd \

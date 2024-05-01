@@ -17,4 +17,4 @@ jobs:
           SLACK_TITLE: New Build
           SLACK_USERNAME: BotCI
           SLACK_WEBHOOK: ${{secrets.APP_BUILD_WEBHOOK_URL}}
-          SLACK_MESSAGE: "Hello Team D-Tech, a new build is available on the project AndroidCICD"
+          SLACK_MESSAGE: '-"Hello Team D-Tech, a new build is available on the project AndroidCICD"

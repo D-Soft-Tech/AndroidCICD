@@ -31,6 +31,7 @@ jobs:
         run : |
           ./gradlew assembleDebug
           # Extract the version code from app build.gradle file and store it in a variable
+          echo "THE RETRIEVED VERSION CODE ${(grep -oP 'versionName \d+' app/build.gradle | grep oP '\d+')}"
           export APK_VERSION_CODE=$(grep -oP 'versionName \d+' app/build.gradle | grep oP '\d+')
           
       - name : Format The Version Code
@@ -42,7 +43,7 @@ jobs:
       - name : Concatenate the Version Code with the apk name to get a unique apk name
         run : |
           echo "This is your formatted apk name $FORMATTED_VERSION_CODE"
-          export APK_NAME="apk-debug-${{env.FORMATTED_VERSION_CODE}}.apk"
+          export APK_NAME="apk-debug-$FORMATTED_VERSION_CODE.apk"
 
       # Build the apk now, but first create a temporary file to save the built apk to
       - name: Create a temporary folder
@@ -51,8 +52,8 @@ jobs:
       - name: Put temporary apk in the created directory
         run: |
           cd downloads       
-          echo "This is your formatted apk name ${{env.APK_NAME}}"
-          echo '${{ env.APK_NAME }}' > new_apk_name
+          echo "This is your formatted apk name $APK_NAME"
+          echo '$APK_NAME' > new_apk_name
           cd ..
 
       - name: Upload the built apk

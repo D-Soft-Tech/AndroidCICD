@@ -27,7 +27,16 @@ jobs:
         run : ./gradlew build
 
       - name : Upload the built apk
-        uses :
+        uses : actions/upload-artifact@v4.3.3
         with:
           name: AndroidCICD
           path: app/build/outputs/apk/app-debug.apk
+
+      - name: Upload Apk to Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.APP_BUILD_WEBHOOK_URL }}
+        run: |
+          curl -F file=@app/build/outputs/apk/debug/app-debug.apk \
+          -F channels=ci_cd \
+          -F token=$SLACK_WEBHOOK_URL \
+          https://slack.com/api/files.upload

@@ -34,12 +34,12 @@ jobs:
 
       - name: Get version
         run: |
-          echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_OUTPUT
+          echo "APP_VERSION_NAME=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
 
       - name : Format The Version Code
         run : |
           # Replace (.) with (_) in the version code
-          export FORMATTED_VERSION_CODE=$(echo ${{env.version_name}} | tr '.' '_')
+          export FORMATTED_VERSION_CODE=$(echo ${{env.APP_VERSION_NAME}} | tr '.' '_')
 
       # Concatenate the apk file name with the FORMATTED_VERSION_CODE to make the apk unique
       - name : Concatenate the Version Code with the apk name to get a unique apk name

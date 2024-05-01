@@ -31,6 +31,3 @@ jobs:
         with:
           name: AndroidCICD
           path: app/build/outputs/apk/app-debug.apk
-
-      - name : Build Debug Apk
-        run : ./gradlew assembleDebug

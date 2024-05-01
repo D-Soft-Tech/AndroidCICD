@@ -26,23 +26,38 @@ jobs:
       - name : build the apk with gradle
         run : ./gradlew build
 
-      - name : Create a temporary folder
-        run : mkdir downloads
+      # Extract the Version Code from app level build.gradle and replace period (.) with underscore (_)
+      - name : Build the debug apk
+        run : |
+          ./gradlew assembleDebug
+          # Extract the version code from app build.gradle file and store it in a variable
+          export APK_VERSION_CODE=$(grep -oP 'versionName \d+' app/build.gradle | grep oP '\d+')
+          
+      - name : Format The Version Code
+        run : |
+          # Replace (.) with (_) in the version code
+          export FORMATTED_VERSION_CODE=$(echo $APK_VERSION_CODE | tr '.' '_')
+
+      # Concatenate the apk file name with the FORMATTED_VERSION_CODE to make the apk unique
+      - name : Concatenate the Version Code with the apk name to get a unique apk name
+        run : |
+          export APK_NAME="apk-debug-$(FORMATTED_VERSION_CODE).apk"
+
+      # Build the apk now, but first create a temporary file to save the built apk to
+      - name: Create a temporary folder
+        run: mkdir downloads
 
       - name: Put temporary apk in the created directory
         run: |
           cd downloads
-          echo 'app-debug' > app-debug.apk
+          echo 'app-debug' > $APK_NAME
           cd ..
 
-      - name : Upload the built apk
-        uses : actions/upload-artifact@v4.3.3
+      - name: Upload the built apk
+        uses: actions/upload-artifact@v4.3.3
         with:
           name: AndroidCICD
-          path: downloads/app-debug.apk
-
-      - name : Build the debug apk
-        run : ./gradlew assembleDebug
+          path: downloads/$APK_NAME
 
       - name: Upload Apk to Slack
         env:

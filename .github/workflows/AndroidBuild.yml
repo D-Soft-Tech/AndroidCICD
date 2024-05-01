@@ -32,7 +32,7 @@ jobs:
           ./gradlew assembleDebug
           # Extract the version code from app build.gradle file and store it in a variable
           echo "THE RETRIEVED VERSION CODE ${(grep -oP 'versionName \d+' app/build.gradle | grep oP '\d+')}"
-          export APK_VERSION_CODE=$(grep -oP 'versionName \d+' app/build.gradle | grep oP '\d+')
+          export APK_VERSION_CODE=$(grep -oP 'versionCode \d+' app/build.gradle | grep oP '\d+')
           
       - name : Format The Version Code
         run : |

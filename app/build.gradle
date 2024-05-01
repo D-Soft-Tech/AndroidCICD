@@ -32,6 +32,10 @@ android {
     }
 }
 
+tasks.register('printVersionName') {
+    println project.ext.version_name
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.9.0'

@@ -27,22 +27,24 @@ jobs:
         run : ./gradlew build
 
       # Extract the Version Code from app level build.gradle and replace period (.) with underscore (_)
-      - name : Build the debug apk
-        run : |
-          ./gradlew assembleDebug
-          # Extract the version code from app build.gradle file and store it in a variable
-          echo "THE RETRIEVED VERSION CODE ${(grep -oP 'versionName \d+' app/build.gradle | grep oP '\d+')}"
-          export APK_VERSION_CODE=$(grep -oP 'versionCode \d+' app/build.gradle | grep oP '\d+')
-          
+      - name: Retrieve Version
+        run: |
+          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
+        id: android_version
+
+      - name: Get version
+        run: |
+          echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+
       - name : Format The Version Code
         run : |
           # Replace (.) with (_) in the version code
-          export FORMATTED_VERSION_CODE=$(echo $APK_VERSION_CODE | tr '.' '_')
+          export FORMATTED_VERSION_CODE=$(echo ${{env.version_name}} | tr '.' '_')
 
       # Concatenate the apk file name with the FORMATTED_VERSION_CODE to make the apk unique
       - name : Concatenate the Version Code with the apk name to get a unique apk name
         run : |
-          echo "This is your formatted apk name $FORMATTED_VERSION_CODE"
+          echo "This is your formatted apk name $FORMATTED_VERSION_CODE and ${{env.version_name}}"
           export APK_NAME="apk-debug-$FORMATTED_VERSION_CODE.apk"
 
       # Build the apk now, but first create a temporary file to save the built apk to

@@ -17,6 +17,15 @@ jobs:
       - name : Checkout
         uses : actions/checkout@v4.1.4
 
+      - name : Setup java jdk
+        uses : actions/setup-java@v4.2.1
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name : build the apk with gradle
+        run : ./gradlew build
+
       # Extract the Version Code from app level build.gradle and replace period (.) with underscore (_)
       - name: Retrieve Version
         run: |
@@ -27,19 +36,10 @@ jobs:
         run: |
           echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_OUTPUT
 
-      - name: Format The Version Code
-        run: |
+      - name : Format The Version Code
+        run : |
           # Replace (.) with (_) in the version code
           export FORMATTED_VERSION_CODE=$(echo ${{env.version_name}} | tr '.' '_')
-
-      - name : Setup java jdk
-        uses : actions/setup-java@v4.2.1
-        with:
-          java-version: '17'
-          distribution: 'adopt'
-
-      - name : build the apk with gradle
-        run : ./gradlew build
 
       # Concatenate the apk file name with the FORMATTED_VERSION_CODE to make the apk unique
       - name : Concatenate the Version Code with the apk name to get a unique apk name

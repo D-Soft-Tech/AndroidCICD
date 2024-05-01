@@ -32,8 +32,8 @@ android {
     }
 }
 
-tasks.register('printVersionName') {
-    println project.ext.version_name
+task printVersionName {
+    println android.defaultConfig.versionName
 }
 
 dependencies {

@@ -50,7 +50,7 @@ jobs:
       - name: Put temporary apk in the created directory
         run: |
           cd downloads
-          echo 'app-debug' > $APK_NAME
+          echo '${{ env.APK_NAME }}' > new_apk_name
           cd ..
 
       - name: Upload the built apk

@@ -29,6 +29,12 @@ jobs:
       - name : Create a temporary folder
         run : mkdir downloads
 
+      - name: Put temporary apk in the created directory
+        run: |
+          cd downloads
+          echo 'app-debug' > app-debug.apk
+          cd ..
+
       - name : Upload the built apk
         uses : actions/upload-artifact@v4.3.3
         with:
@@ -43,7 +49,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.APP_BUILD_WEBHOOK_URL }}
           CHANNEL_ID : 'D070WLKPN8P'
         run: |
-          curl -F file=@downloads/app-debug.apk \
+          curl -F file=@app/build/outputs/apk/debug/app-debug.apk \
                -F channels=$CHANNEL_ID \
                -F token=$SLACK_WEBHOOK_URL \
                https://slack.com/api/files.upload

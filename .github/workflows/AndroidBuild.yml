@@ -41,7 +41,7 @@ jobs:
       # Concatenate the apk file name with the FORMATTED_VERSION_CODE to make the apk unique
       - name : Concatenate the Version Code with the apk name to get a unique apk name
         run : |
-          export APK_NAME="apk-debug-$(FORMATTED_VERSION_CODE).apk"
+          export APK_NAME="apk-debug-${{env.FORMATTED_VERSION_CODE}}.apk"
 
       # Build the apk now, but first create a temporary file to save the built apk to
       - name: Create a temporary folder
@@ -49,7 +49,8 @@ jobs:
 
       - name: Put temporary apk in the created directory
         run: |
-          cd downloads
+          cd downloads       
+          echo "This is your formatted apk name ${{env.APK_NAME}}"
           echo '${{ env.APK_NAME }}' > new_apk_name
           cd ..
 

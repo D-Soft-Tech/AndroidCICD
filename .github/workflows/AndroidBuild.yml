@@ -32,10 +32,11 @@ jobs:
         env:
           APP_VERSION_NAME: ${{ 1.2 }}
 
+        run: echo "VERSION_NAME_2=$(${{github.workspace}}/gradlew -q printVersionName)"
+
         steps:
           - id: android_version
-            run: |
-              echo "VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName) >> $GITHUB_OUTPUT"
+            run: echo "VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName) >> $GITHUB_OUTPUT"
 
       - name: Get version
         run: |

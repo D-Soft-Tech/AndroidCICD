@@ -37,8 +37,8 @@ jobs:
 
       - name: Get version
         run: |
-          echo "Third echo MY_App_version_name is ${{ env.APP_VERSION_NAME }}"
-          echo "Third2 echo MY_App_version_name is ${{ steps.android_version.env.APP_VERSION_NAME }}"
+          echo "Third echo MY_App_version_name is ${{ env.VERSION_NAME }}"
+          echo "Third2 echo MY_App_version_name is ${{ steps.android_version.env.VERSION_NAME }}"
           echo "Fifth echo MY_App_version_name is ${{ 123 }}"
 
       - name : Format The Version Code

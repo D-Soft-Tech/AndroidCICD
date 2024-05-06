@@ -38,13 +38,14 @@ jobs:
 
       - name: Get version
         run: |
-          echo "Third echo MY_App_version_name is ${{ steps.android_version.env.APP_VERSION_NAME }}"
-          echo "Fifth echo MY_App_version_name is ${{ steps.android_version.env.FORMATTED_VERSION_NAME }}"
+          echo "Third echo MY_App_version_name is ${{ env.APP_VERSION_NAME }}"
+          echo "Fifth echo MY_App_version_name is ${{ env.FORMATTED_VERSION_NAME }}"
 
       - name : Format The Version Code
         run : |
           # Replace (.) with (_) in the version code
           export FORMATTED_VERSION_CODE=$(echo ${{env.APP_VERSION_NAME}} | tr '.' '_')
+          echo "Formatted version is ${{ env.APP_VERSION_NAME }}"
 
       # Concatenate the apk file name with the FORMATTED_VERSION_CODE to make the apk unique
       - name : Concatenate the Version Code with the apk name to get a unique apk name

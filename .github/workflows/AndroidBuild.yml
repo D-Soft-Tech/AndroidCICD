@@ -38,10 +38,7 @@ jobs:
 
       - name: Get version
         run: |
-          echo "MY_APP_VERSION_NAME=${{ APP_VERSION_NAME }}" >> $GITHUB_ENV
-          echo "Second echo MY_App_version_name is ${{ APP_VERSION_NAME }}"
           echo "Third echo MY_App_version_name is ${{ steps.android_version.env.APP_VERSION_NAME }}"
-          echo "Fourth echo MY_App_version_name is ${{ FORMATTED_VERSION_NAME }}"
           echo "Fifth echo MY_App_version_name is ${{ steps.android_version.env.FORMATTED_VERSION_NAME }}"
 
       - name : Format The Version Code

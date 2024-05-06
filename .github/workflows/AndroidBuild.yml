@@ -1,4 +1,5 @@
 name: AndroidBuild
+run-name: Workflow triggered by ${{ github.actor }}
 on:
   pull_request :
     branches : [ master ]

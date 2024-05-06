@@ -31,7 +31,7 @@ jobs:
       - name: Retrieve Version
         env:
           APP_VERSION_NAME: ${{ 1.2 }}
-          APP_VERSION_NAME_2: ${{ ${{github.workspace}}/gradlew -q printVersionName }}
+          APP_VERSION_NAME_2: $(${{github.workspace}}/gradlew -q printVersionName)
           FORMATTED_VERSION_NAME: ${{ echo ${{ ${{github.workspace}}/gradlew -q printVersionName }} | tr '.' '_') }}
         run: |
           echo "VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName) >> $GITHUB_OUTPUT"

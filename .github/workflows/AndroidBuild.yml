@@ -29,13 +29,23 @@ jobs:
 
       # Extract the Version Code from app level build.gradle and replace period (.) with underscore (_)
       - name: Retrieve Version
+        env:
+          APP_VERSION_NAME: $(${{github.workspace}}/gradlew -q printVersionName)
+          FORMATTED_VERSION_NAME: $(echo ${{env.APP_VERSION_NAME}} | tr '.' '_')
+          FORMATTED_VERSION_NAME2: $(echo ${{ APP_VERSION_NAME }} | tr '.' '_')
         run: |
           echo "VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName) >> $GITHUB_OUTPUT"
         id: android_version
 
       - name: Get version
         run: |
-          echo "APP_VERSION_NAME=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+          echo "MY_APP_VERSION_NAME=${{ APP_VERSION_NAME }}" >> $GITHUB_ENV
+          echo "Second echo MY_App_version_name is ${{ APP_VERSION_NAME }}"
+          echo "Third echo MY_App_version_name is ${{ steps.android_version.env.APP_VERSION_NAME }}"
+          echo "Fourth echo MY_App_version_name is ${{ FORMATTED_VERSION_NAME }}"
+          echo "Fifth echo MY_App_version_name is ${{ steps.android_version.env.FORMATTED_VERSION_NAME }}"
+          echo "Sixth echo MY_App_version_name is ${{ FORMATTED_VERSION_NAME2 }}"
+          echo "Seventh echo MY_App_version_name is ${{ steps.android_version.env.FORMATTED_VERSION_NAME2 }}"
 
       - name : Format The Version Code
         run : |

@@ -30,7 +30,7 @@ jobs:
       # Extract the Version Code from app level build.gradle and replace period (.) with underscore (_)
       - name: Retrieve Version
         env:
-          APP_VERSION_NAME: ${{ gradlew -q printVersionName }}
+          APP_VERSION_NAME: ${{ 1.2 }}
           APP_VERSION_NAME_2: ${{ ${{github.workspace}}/gradlew -q printVersionName }}
           FORMATTED_VERSION_NAME: ${{ echo ${{ ${{github.workspace}}/gradlew -q printVersionName }} | tr '.' '_') }}
         run: |

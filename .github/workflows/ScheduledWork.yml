@@ -4,8 +4,8 @@ on:
   push:
     branches: [ master ]
   schedule:
-    - cron: '13 10 * * 1,5'  # Mondays and Fridays
-    - cron: '13 10 * * 6'
+    - cron: '19 10 * * 1,5'  # Mondays and Fridays
+    - cron: '19 10 * * 6'
 
 jobs:
   testing_schedule:
@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: This Step will only run for the first Time Schedule
-        if: github.event.schedule != '13 10 * * 1,5'
+        if: github.event.schedule != '19 10 * * 1,5'
         run: echo "This is running for the second scheduled time"
 
       - name: This runs every time
@@ -21,12 +21,12 @@ jobs:
 
       - name: Create Env variables
         env:
-          apk_version_name: $(./gradlew printVersionName)
+          apk_version_name: $(./gradlew printVersionName | grep "versionName")
         run: echo 'The Environment variable that i just saved into this step is ${{ env.apk_version_name }}'
 
       - name: Create Env variables2
         run: |
-          output=$(./gradlew printVersionName)
+          output=$(./gradlew printVersionName | grep "versionName")
           echo "::set-env name=apk_version_name::$output"
           echo "The value i just saved in the env variable apk_version_name is ${{ env.apk_version_name }}"
 

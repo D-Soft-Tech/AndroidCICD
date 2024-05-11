@@ -2,8 +2,8 @@ name: Scheduled Workflow
 run-name: I am using this workflow to learn about how to schedule a workflow to run at a specified time.
 on:
   schedule:
-    - cron: '12 8 * * 6'
-    - cron: '14,15 8 * * 6'
+    - cron: '29 5 * * 6'
+    - cron: '30,33 5 * * 6'
 
 jobs:
   testing_schedule:

@@ -20,6 +20,7 @@ jobs:
         run: echo "This runs for all the time"
 
       - name: Create Env variables
+      - run-name: Creating Env variables
         env:
-          apk_version_name: gradlew -q printVersionName)
+          apk_version_name: $(${{github.workspace}}/gradlew -q printVersionName)
         run: echo 'The Environment variable that i just saved into this step is ${{ env.apk_version_name }}'

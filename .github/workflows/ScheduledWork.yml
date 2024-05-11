@@ -26,8 +26,8 @@ jobs:
 
       - name: Create Env variables2
         run: |
-          output=$(./gradlew printVersionName | grep "versionName")
-          echo "::set-env name=apk_version_name::$output"
+          echo "VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName) >> $GITHUB_OUTPUT"
+          echo "::set-env name=apk_version_name::$VERSION_NAME"
           echo "The value i just saved in the env variable apk_version_name is ${{ env.apk_version_name }}"
 
       - name: Verifying the ENV variable

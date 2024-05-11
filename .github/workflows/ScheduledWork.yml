@@ -1,8 +1,10 @@
 name: Scheduled Workflow
 run-name: I am using this workflow to learn about how to schedule a workflow to run at a specified time.
 on:
+  push:
+    branches: [ master ]
   schedule:
-    - cron: '21 9 * * 6'
+    - cron: '21 9 * * 1, 5'  # Mondays and Fridays
     - cron: '27 9 * * 6'
 
 jobs:
@@ -11,8 +13,13 @@ jobs:
 
     steps:
       - name: This Step will only run for the first Time Schedule
-        if: github.event.schedule != '9 8 * * 6'
+        if: github.event.schedule != '21 9 * * 1, 5'
         run: echo "This is running for the second scheduled time"
 
       - name: This runs every time
         run: echo "This runs for all the time"
+
+      - name: Create Env variables
+        env:
+          apk_version_name: gradlew -q printVersionName)
+        run: echo 'The Environment variable that i just saved into this step is ${{ env.apk_version_name }}'
